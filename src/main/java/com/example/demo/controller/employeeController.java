@@ -28,9 +28,10 @@ public class employeeController {
 	}
 
 	@GetMapping("/login")
-	public Employee LogIn(String nom,String poste) {
-		return EmployeeRepository.findByNomAndPoste(nom,poste);
+	public List<Employee> LogIn(String login,String mdp) {
+		return  EmployeeRepository.findByLoginAndMdp(login, mdp);
 	}
+	
 
 
 

@@ -1,9 +1,8 @@
 package com.example.demo.model;
 
 
-import java.util.Set;
+import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,9 +27,13 @@ public class Employee {
 	private String departement; 
 	@Column(name = "poste")
 	private String poste;
+	@Column(name = "mdp")
+	private String mdp;
+	@Column(name = "login")
+	private String login;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy="emp")
-	private Set<Demande> Ddes;
+	@OneToMany
+	private List<Demande> Ddes;
 	
 	
 	public Employee() {
@@ -38,56 +41,100 @@ public class Employee {
 		
 	}
 
-	public Employee(long id, String nom, String prenom, String departement, String post) {
+
+	public Employee(long id, String nom, String prenom, String departement, String poste, String mdp, String login,
+			List<Demande> ddes) {
 		super();
 		this.id = id;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.departement = departement;
-		this.poste = post;
+		this.poste = poste;
+		this.mdp = mdp;
+		this.login = login;
+		Ddes = ddes;
 	}
+
 
 	public long getId() {
 		return id;
 	}
 
+
 	public void setId(long id) {
 		this.id = id;
 	}
+
 
 	public String getNom() {
 		return nom;
 	}
 
+
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
+
 
 	public String getPrenom() {
 		return prenom;
 	}
 
+
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
 	}
+
 
 	public String getDepartement() {
 		return departement;
 	}
 
+
 	public void setDepartement(String departement) {
 		this.departement = departement;
 	}
 
-	public String getPost() {
+
+	public String getPoste() {
 		return poste;
 	}
 
-	public void setPost(String post) {
-		this.poste = post;
+
+	public void setPoste(String poste) {
+		this.poste = poste;
 	}
-	
-	
+
+
+	public String getMdp() {
+		return mdp;
+	}
+
+
+	public void setMdp(String mdp) {
+		this.mdp = mdp;
+	}
+
+
+	public String getLogin() {
+		return login;
+	}
+
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+
+	public List<Demande> getDdes() {
+		return Ddes;
+	}
+
+
+	public void setDdes(List<Demande> ddes) {
+		Ddes = ddes;
+	}
+
 	
 	
 	
