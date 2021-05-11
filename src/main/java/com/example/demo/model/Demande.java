@@ -1,6 +1,6 @@
 package com.example.demo.model;
 
-import java.sql.Date;
+import java.util.Date;
 
 
 import javax.persistence.Column;
@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "Demande")
@@ -21,7 +23,8 @@ private long id;
 @Column(name = "destinataire")
 private String destinataire;
 @Column(name = "date_D")
-private Date date;
+@Temporal(TemporalType.DATE)
+private Date date_D;
 @Column(name = "lieu")
 private String lieu;
 @Column(name = "decription")
@@ -45,7 +48,7 @@ public Demande(long id, String destinataire, Date date, String lieu, String desc
 	super();
 	this.id = id;
 	this.destinataire = destinataire;
-	this.date = date;
+	this.date_D = date;
 	this.lieu = lieu;
 	this.description = description;
 	this.degre_urgence = degre_urgence;
@@ -69,12 +72,12 @@ public void setDestinataire(String destinataire) {
 	this.destinataire = destinataire;
 }
 
-public Date getDate() {
-	return date;
+public Date getDate_D() {
+	return date_D;
 }
 
-public void setDate(Date date) {
-	this.date = date;
+public void setDate_D(Date date) {
+	this.date_D = date;
 }
 
 public String getLieu() {
