@@ -66,13 +66,21 @@ public class DemandeController {
 	//change etat
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Demande> updateDemande(@PathVariable Long id, String newEtat){
+	public ResponseEntity<Demande> updateDemande(@PathVariable Long id,@RequestBody Demande NewDemande){
 		Demande demande = demandeRepository.findById(id)
 			.orElseThrow(() -> new ResourceNotFoundException("no demande with this id"+ id));
-			demande.setEtat(newEtat);
+			demande.setDate_D(NewDemande.getDate_D());
+			demande.setDegre_urgence(NewDemande.getDegre_urgence());
+			demande.setDescription(NewDemande.getDescription());
+			demande.setDestinataire(NewDemande.getDestinataire());
+			demande.setEmployee_id(NewDemande.getEmployee_id());
+			demande.setEtat(NewDemande.getEtat());
+			demande.setId(NewDemande.getId());
+			demande.setLieu(NewDemande.getLieu());
+			
 			Demande newDemande = demandeRepository.save(demande);
 			return ResponseEntity.ok(newDemande);
 	}
 	
-	
 }
+
