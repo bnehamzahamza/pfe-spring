@@ -50,7 +50,8 @@ public class DemandeController {
 	//get all demandes
 	
 	@GetMapping("/get")
-	public List<Demande> getAllDemande(){
+
+		public List<Demande> getAllDemande(){
 		return demandeRepository.findAll();
 	}
 	
@@ -73,7 +74,6 @@ public class DemandeController {
 			demande.setDegre_urgence(NewDemande.getDegre_urgence());
 			demande.setDescription(NewDemande.getDescription());
 			demande.setDestinataire(NewDemande.getDestinataire());
-			demande.setEmployee_id(NewDemande.getEmployee_id());
 			demande.setEtat(NewDemande.getEtat());
 			demande.setId(NewDemande.getId());
 			demande.setLieu(NewDemande.getLieu());
@@ -82,5 +82,8 @@ public class DemandeController {
 			return ResponseEntity.ok(newDemande);
 	}
 	
+	//liste demande pour le responsable d'un departement//
+	
+
 }
 

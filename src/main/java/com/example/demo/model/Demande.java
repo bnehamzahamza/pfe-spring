@@ -8,11 +8,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "Demande")
@@ -33,27 +33,32 @@ private String description;
 private String degre_urgence;
 @Column(name = "etat")
 private String etat;
+@Type(type = "org.hibernate.type.NumericBooleanType")
+@Column(name = "accord_responsable")
+private boolean accord_responsable;
+@Type(type = "org.hibernate.type.NumericBooleanType")
+@Column(name = "accord_dmg")
+private boolean accord_dmg;
 
 
-@ManyToOne
-@JoinColumn(name="employee_id")
-private Employee employee_id;
 
 public Demande() {
 	
 }
 
-public Demande(long id, String destinataire, Date date, String lieu, String description, String degre_urgence,
-		String etat, Employee employee_id) {
+public Demande(long id, String destinataire, Date date_D, String lieu, String description, String degre_urgence,
+		String etat, boolean accord_responsable, boolean accord_dmg) {
 	super();
 	this.id = id;
 	this.destinataire = destinataire;
-	this.date_D = date;
+	this.date_D = date_D;
 	this.lieu = lieu;
 	this.description = description;
 	this.degre_urgence = degre_urgence;
 	this.etat = etat;
-	this.employee_id = employee_id;
+	this.accord_responsable = accord_responsable;
+	this.accord_dmg = accord_dmg;
+
 }
 
 public long getId() {
@@ -76,8 +81,8 @@ public Date getDate_D() {
 	return date_D;
 }
 
-public void setDate_D(Date date) {
-	this.date_D = date;
+public void setDate_D(Date date_D) {
+	this.date_D = date_D;
 }
 
 public String getLieu() {
@@ -112,14 +117,26 @@ public void setEtat(String etat) {
 	this.etat = etat;
 }
 
-public Employee getEmployee_id() {
-	return employee_id;
+
+
+public void setAccord_responsable(boolean accord_responsable) {
+	this.accord_responsable = accord_responsable;
 }
 
-public void setEmployee_id(Employee employee_id) {
-	this.employee_id = employee_id;
+
+
+public void setAccord_dmg(boolean accord_dmg) {
+	this.accord_dmg = accord_dmg;
 }
 
+
+public boolean isAccord_responsable() {
+	return accord_responsable;
+}
+
+public boolean isAccord_dmg() {
+	return accord_dmg;
+}
 
 
 }

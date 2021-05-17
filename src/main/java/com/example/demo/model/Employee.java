@@ -3,11 +3,13 @@ package com.example.demo.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -32,8 +34,9 @@ public class Employee {
 	@Column(name = "login")
 	private String login;
 	
-	@OneToMany
-	private List<Demande> Ddes;
+	@OneToMany(targetEntity  = Demande.class,cascade = CascadeType.ALL)
+	@JoinColumn(name = "emp_id",referencedColumnName = "id")
+	private List<Demande> emp_id;
 	
 	
 	public Employee() {
@@ -43,7 +46,7 @@ public class Employee {
 
 
 	public Employee(long id, String nom, String prenom, String departement, String poste, String mdp, String login,
-			List<Demande> ddes) {
+			List<Demande> emp_id) {
 		super();
 		this.id = id;
 		this.nom = nom;
@@ -52,7 +55,7 @@ public class Employee {
 		this.poste = poste;
 		this.mdp = mdp;
 		this.login = login;
-		Ddes = ddes;
+		this.emp_id = emp_id;
 	}
 
 
@@ -126,14 +129,15 @@ public class Employee {
 	}
 
 
-	public List<Demande> getDdes() {
-		return Ddes;
+	public List<Demande> getEmp_id() {
+		return emp_id;
 	}
 
 
-	public void setDdes(List<Demande> ddes) {
-		Ddes = ddes;
+	public void setEmp_id(List<Demande> emp_id) {
+		this.emp_id = emp_id;
 	}
+
 
 	
 	
