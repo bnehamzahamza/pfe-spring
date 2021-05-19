@@ -4,6 +4,8 @@ package com.example.demo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.Demande;
@@ -32,15 +35,9 @@ public class employeeController {
 		return EmployeeRepository.findAll();
 	}
 
-	@PostMapping("/login")
-	public boolean LogIn(String login, String mdp) {
-		Employee emp = EmployeeRepository.findByLoginAndMdp(login, mdp);
-		if (emp == null) {
-			return false;
-		}
-		else {return true ;
-		}
-		
+	@GetMapping("/login")
+	public Employee LogIn(@RequestParam(name ="login") String login,@RequestParam(name="mdp") String mdp) {
+		return EmployeeRepository.findByLoginAndMdp(login, mdp);
 		
 		
 	}
@@ -67,6 +64,15 @@ public class employeeController {
 		Employee newEmp = EmployeeRepository.save(empOld);
 		return newEmp;
 		
+	}
+	
+	//get employee by id
+	
+	@GetMapping("/{id}")
+	public Employee getEmployeeById(@PathVariable Long id) {
+		Employee employee = EmployeeRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("no demande with this id"+ id));
+		return employee;
 	}
 	
 
