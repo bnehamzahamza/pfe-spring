@@ -41,4 +41,13 @@ public class ServiceConcerneController {
 		return serviceConcerneRepository.findAll();
 	}
 	
+	
+	//return list demandes
+	@GetMapping("/liste")
+	public List<Demande> getScDemande(@RequestParam long id){
+		ServiceConcerne servC = serviceConcerneRepository.getOne(id);
+		List<Demande> ListeD = servC.getEmpsc_id();
+		return ListeD;
+	}
+	
 }
