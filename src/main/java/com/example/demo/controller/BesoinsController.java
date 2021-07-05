@@ -1,13 +1,21 @@
 package com.example.demo.controller;
 
+
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -29,10 +37,22 @@ import com.example.demo.repository.DemandeRepository;
 @RestController
 @RequestMapping("/besoins")
 public class BesoinsController {
+	
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		dateFormat.setLenient(false);
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+	}
+	
+	 public int compare(Demande a, Demande b) {
+         return a.getDate_D().compareTo(b.getDate_D());
+     }
 
 	
 	@Autowired
 	private BesoinsRepository besoinsRepository;
+	@Autowired
 	private DemandeRepository demandeRepository;
 	
 	//set fourniture for newBesoins
@@ -157,10 +177,90 @@ public class BesoinsController {
 			Besoins newBesoin = besoinsRepository.save(besoin);
 			return ResponseEntity.ok(newBesoin);
 		}
-				
-				
 		
 		
+		@PutMapping("/setdatef/")
+		public ResponseEntity<Besoins> setDateF(@RequestParam long id,@RequestBody Besoins besoin) {
+			Besoins besoinOld = besoinsRepository.findById(id)
+					.orElseThrow(() -> new ResourceNotFoundException("no besoin with this id"+ id));
+			besoinOld.setDate_F(besoin.getDate_F());
+			
+			Besoins newBesoin = besoinsRepository.save(besoinOld);
+			return ResponseEntity.ok(newBesoin);
+		}
+		
+		@GetMapping("/datediff")
+		public long dateDiff(@RequestParam(name = "date1") Date firstDate ,@RequestParam(name = "date2") Date secondDate ) {
+			long diffInMillies = Math.abs(secondDate.getTime() - firstDate.getTime());
+		    long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+
+		    return diff;
+		}
+		
+		
+		//get fournitures costs
+		@PostMapping("/getfrcost")
+		public double frCosts(@RequestBody Besoins bes) {
+			List<Fourniture> ListFr = bes.getBesoinsF_id();
+			double FraisTotal = 0;
+			for(Fourniture Frnt : ListFr) {
+				double frai = Frnt.getPrix()*Frnt.getQte();
+				FraisTotal += frai;
+			}
+			
+			return FraisTotal;
+		}
+		//get fournitures costs
+		
+		@PostMapping("/getprcost")
+		public double PrCosts(@RequestBody Besoins bes) {
+			List<Personnel> ListPr = bes.getBesoinsP_id();
+			double FraisTotal = 0;
+			for(Personnel Frnt : ListPr) {
+				double frai = Frnt.getPrix()*Frnt.getNbre_heure();
+				FraisTotal += frai;
+			}
+			
+			return FraisTotal;
+		}
+		//get fournitures costs
+		
+		@PostMapping("/getmtcost")
+		public double MtCosts(@RequestBody Besoins bes) {
+			List<Materiel> ListMt = bes.getBesoinsM_id();
+			double FraisTotal = 0;
+			for(Materiel Frnt : ListMt) {
+				double frai = Frnt.getPrix()*Frnt.getQte();
+				FraisTotal += frai;
+			}
+			
+			return FraisTotal;
+		}
+		
+		
+		
+		
+		@PostMapping("/tribydate/")
+		public Besoins triDate(@RequestParam long dateid,@RequestBody Demande ListDem){
+			
+			Besoins ListNew = new Besoins();
+			List<Besoins> Listbes = besoinsRepository.findAll();
+			
+			int siz = Listbes.size(); 
+				for(int i=0 ; i<siz ; i++) {
+					
+					if(ListDem.equals(Listbes.get(i).getDemande_id())) {
+						ListNew = Listbes.get(i);	
+					}
+				}
+			
+			
+			return ListNew;
+			
+			}
+			
+			
+
 		
 		
 		

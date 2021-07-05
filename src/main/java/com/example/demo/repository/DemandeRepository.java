@@ -11,6 +11,5 @@ import com.example.demo.model.Demande;
 
 @Repository
 public interface DemandeRepository extends JpaRepository<Demande, Long> {
-	
 
 }

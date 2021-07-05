@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,5 +50,27 @@ public class ServiceConcerneController {
 		List<Demande> ListeD = servC.getEmpsc_id();
 		return ListeD;
 	}
+	
+	@GetMapping("/checklog/")
+	public ServiceConcerne checkLog(@RequestParam(name ="log") String login,@RequestParam String mdp) {
+		return serviceConcerneRepository.findByLoginAndMdp(login, mdp);
+	}
+	
+	
+	@GetMapping("/getdemandebynom/{nom}")
+	public List<Demande> getByNom(@PathVariable String nom) {
+		ServiceConcerne ser = serviceConcerneRepository.findByNom(nom);
+		return ser.getEmpsc_id();
+		
+	}
+	
+
+	
+	
+	
+	
+	
+	
+	
 	
 }

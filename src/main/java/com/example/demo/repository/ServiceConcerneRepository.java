@@ -8,4 +8,5 @@ import com.example.demo.model.ServiceConcerne;
 @Repository
 public interface ServiceConcerneRepository extends JpaRepository<ServiceConcerne, Long> {
 	ServiceConcerne findByNom(String nom);
+	ServiceConcerne findByLoginAndMdp(String login,String mdp);
 }

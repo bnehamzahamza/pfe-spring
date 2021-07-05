@@ -42,6 +42,9 @@ private boolean accord_responsable;
 @Type(type = "org.hibernate.type.NumericBooleanType")
 @Column(name = "accord_dmg")
 private boolean accord_dmg;
+@Column(name = "frais")
+private Number frais;
+
 
 @OneToOne(mappedBy = "demande_id")
 private Besoins besoins;
@@ -52,7 +55,7 @@ public Demande() {
 }
 
 public Demande(long id, String destinataire, Date date_D, String lieu, String description, String degre_urgence,
-		String etat, boolean accord_responsable, boolean accord_dmg) {
+		String etat, boolean accord_responsable, boolean accord_dmg, Number frais) {
 	super();
 	this.id = id;
 	this.destinataire = destinataire;
@@ -63,6 +66,9 @@ public Demande(long id, String destinataire, Date date_D, String lieu, String de
 	this.etat = etat;
 	this.accord_responsable = accord_responsable;
 	this.accord_dmg = accord_dmg;
+	this.frais = frais;
+
+
 
 }
 
@@ -142,6 +148,20 @@ public boolean isAccord_responsable() {
 public boolean isAccord_dmg() {
 	return accord_dmg;
 }
+
+public Number getFrais() {
+	return frais;
+}
+
+public void setFrais(Number frais) {
+	this.frais = frais;
+}
+
+
+
+
+
+
 
 
 }

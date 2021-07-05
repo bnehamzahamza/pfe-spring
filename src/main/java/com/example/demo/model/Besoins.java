@@ -1,8 +1,10 @@
 package com.example.demo.model;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="besoins")
@@ -34,19 +38,26 @@ public class Besoins {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "demande_id", referencedColumnName = "id")
 	private Demande demande_id;
+	
+	@Column(name = "date_F")
+	@Temporal(TemporalType.DATE)
+	private Date date_F;
+	
 
 	public Besoins() {
 		
 	}
 	
 	public Besoins(long id, List<Fourniture> besoinsF_id, List<Materiel> besoinsM_id, List<Personnel> besoinsP_id,
-			Demande demande_id) {
+			Demande demande_id, Date date_F) {
 		super();
 		this.id = id;
 		this.besoinsF_id = besoinsF_id;
 		this.besoinsM_id = besoinsM_id;
 		this.besoinsP_id = besoinsP_id;
 		this.demande_id = demande_id;
+		this.date_F = date_F;
+
 	}
 
 	public long getId() {
@@ -88,6 +99,16 @@ public class Besoins {
 	public void setDemande_id(Demande demande_id) {
 		this.demande_id = demande_id;
 	}
+
+	public Date getDate_F() {
+		return date_F;
+	}
+
+	public void setDate_F(Date date_F) {
+		this.date_F = date_F;
+	}
+
+
 	
 	
 	

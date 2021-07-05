@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,6 +76,19 @@ public class employeeController {
 		return employee;
 	}
 	
+	@GetMapping("/get/dep")
+	public List<String> GetDeps(){
+		List<Employee> empList = EmployeeRepository.findAll();
+		List<String> ListDep = new ArrayList<String>();
+		for (Employee emp : empList) {
+			ListDep.add(emp.getDepartement());
+		}
+		List<String> NewList = new ArrayList<>(new HashSet<>(ListDep));
+		return NewList;
+		
+	}
+	
+
 
 	
 }

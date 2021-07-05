@@ -18,17 +18,20 @@ public class Materiel {
 	private String nom;
 	@Column(name="qte")
 	private double qte;
+	@Column(name = "prix")
+	private double prix;
 	
 	
 	public Materiel() {
 		
 	}
 	
-	public Materiel(long id, String nom, double qte) {
+	public Materiel(long id, String nom, double qte, double prix) {
 		super();
 		this.id = id;
 		this.nom = nom;
 		this.qte = qte;
+		this.prix = prix;
 	}
 	
 
@@ -54,6 +57,14 @@ public class Materiel {
 
 	public void setQte(double qte) {
 		this.qte = qte;
+	}
+
+	public double getPrix() {
+		return prix;
+	}
+
+	public void setPrix(double prix) {
+		this.prix = prix;
 	}
 	
 	

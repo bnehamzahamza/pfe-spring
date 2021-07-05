@@ -18,17 +18,20 @@ public class Personnel {
 	private String specialite;
 	@Column(name="nbre_heure")
 	private double nbre_heure;
+	@Column(name = "prix")
+	private double prix;
 	
 	
 	public Personnel() {
 		
 	}
 	
-	public Personnel(long id, String specialite, double nbre_heure) {
+	public Personnel(long id, String specialite, double nbre_heure, double prix) {
 		super();
 		this.id = id;
 		this.specialite = specialite;
 		this.nbre_heure = nbre_heure;
+		this.prix = prix;
 	}
 	
 	
@@ -55,6 +58,14 @@ public class Personnel {
 
 	public void setNbre_heure(double nbre_heure) {
 		this.nbre_heure = nbre_heure;
+	}
+
+	public double getPrix() {
+		return prix;
+	}
+
+	public void setPrix(double prix) {
+		this.prix = prix;
 	}
 	
 	

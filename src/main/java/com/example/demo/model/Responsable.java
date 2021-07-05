@@ -12,65 +12,75 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+
 @Entity
-@Table(name = "ServiceConcerne")
-public class ServiceConcerne {
+@Table(name = "Responsable")
+public class Responsable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-	@Column(name ="nom")
-	private String nom;
-	@Column(name ="login")
+	@Column(name ="departement")
+	private String departement;
+	@Column(name = "login")
 	private String login;
-	@Column(name ="mdp")
+	@Column(name = "mdp")
 	private String mdp;
+	
 	@OneToMany(targetEntity  = Demande.class,cascade = CascadeType.ALL)
-	@JoinColumn(name = "empsc_id",referencedColumnName = "id")
-	private List<Demande> empsc_id;
+	@JoinColumn(name = "res_id",referencedColumnName = "id")
+	private List<Demande> res_id;
 
-	public ServiceConcerne() {
+	public Responsable() {
 		
 	}
-	public ServiceConcerne(long id, String nom, List<Demande> empsc_id, String login, String mdp) {
+	public Responsable(long id, String departement, String login, String mdp, List<Demande> res_id) {
 		super();
 		this.id = id;
-		this.nom = nom;
-		this.empsc_id = empsc_id;
+		this.departement = departement;
 		this.login = login;
 		this.mdp = mdp;
-		
+		this.res_id = res_id;
 	}
+
 	public long getId() {
 		return id;
 	}
+
 	public void setId(long id) {
 		this.id = id;
 	}
-	public String getNom() {
-		return nom;
+
+	public String getDepartement() {
+		return departement;
 	}
-	public void setNom(String nom) {
-		this.nom = nom;
+
+	public void setDepartement(String departement) {
+		this.departement = departement;
 	}
-	public List<Demande> getEmpsc_id() {
-		return empsc_id;
-	}
-	public void setEmpsc_id(List<Demande> empsc_id) {
-		this.empsc_id = empsc_id;
-	}
+
 	public String getLogin() {
 		return login;
 	}
+
 	public void setLogin(String login) {
 		this.login = login;
 	}
+
 	public String getMdp() {
 		return mdp;
 	}
+
 	public void setMdp(String mdp) {
 		this.mdp = mdp;
 	}
-	
+
+	public List<Demande> getRes_id() {
+		return res_id;
+	}
+
+	public void setRes_id(List<Demande> res_id) {
+		this.res_id = res_id;
+	}
 	
 	
 	
